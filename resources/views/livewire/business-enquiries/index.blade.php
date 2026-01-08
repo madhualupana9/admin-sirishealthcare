@@ -136,12 +136,18 @@
                                         </button>
                                     </td>
                                     <td class="px-6 py-5">
+                                       @if($enquiry->created_at)
                                         <div class="text-sm text-gray-900">
                                             {{ $enquiry->created_at->format('M j, Y') }}
                                         </div>
                                         <div class="text-sm text-gray-500">
                                             {{ $enquiry->created_at->diffForHumans() }}
                                         </div>
+                                    @else
+                                        <div class="text-sm text-gray-400 italic">
+                                            N/A
+                                        </div>
+                                    @endif
                                     </td>
                                     <td class="px-6 py-5">
                                         <button class="px-3 py-1 inline-flex text-xs leading-5 font-semibold rounded-full {{ $enquiry->enquirer_status === 'enquired' ? 'bg-green-100 text-green-800' : 'bg-yellow-100 text-yellow-800' }}">

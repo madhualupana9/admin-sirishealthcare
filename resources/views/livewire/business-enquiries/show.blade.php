@@ -81,9 +81,11 @@
                             </div>
                             <div class="flex">
                                 <span class="text-gray-500 w-32 flex-shrink-0">Submitted:</span>
-                                <span class="text-gray-900">
-                                    {{ $enquiry->created_at->format('F j, Y g:i A') }}
-                                </span>
+                               @if($enquiry->created_at)
+                                {{ $enquiry->created_at->format('F j, Y g:i A') }}
+                            @else
+                                <span class="text-gray-400 italic">N/A</span>
+                            @endif
                             </div>
                         </div>
                     </div>

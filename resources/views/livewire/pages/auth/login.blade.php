@@ -18,9 +18,9 @@ new #[Layout('layouts.guest')] class extends Component
 
         $this->form->authenticate();
 
-        Session::regenerate();
+        request()->session()->regenerate();
 
-        $this->redirectIntended(default: route('dashboard', absolute: false));
+        $this->redirectIntended(route('dashboard'), navigate: true);
     }
 }; ?>
 

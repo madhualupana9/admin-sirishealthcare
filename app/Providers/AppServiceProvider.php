@@ -25,7 +25,7 @@ class AppServiceProvider extends ServiceProvider
     {
         // Force HTTPS in production
         if (app()->environment('production')) {
-            URL::forceScheme('https');
+        URL::forceScheme('https');
         }
 
         // Set the asset URL to include /admins prefix
@@ -35,12 +35,15 @@ class AppServiceProvider extends ServiceProvider
 
         // Configure Livewire for subdirectory
         Livewire::setUpdateRoute(function ($handle) {
-            return Route::post('/livewire/update', $handle);
+        return Route::post('/livewire/update', $handle)
+            ->middleware('web');
         });
 
-        Livewire::setScriptRoute(function ($handle) {
-            return Route::get('/livewire/livewire.js', $handle);
-        });
+          // Livewire script route WITH web middleware
+            Livewire::setScriptRoute(function ($handle) {
+                return Route::get('/livewire/livewire.js', $handle)
+                    ->middleware('web');
+            });
 
         Gate::define('admin', function ($user) {
             return $user->isAdmin();
