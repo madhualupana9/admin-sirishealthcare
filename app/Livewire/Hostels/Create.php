@@ -25,6 +25,8 @@ class Create extends Component
     public $showSpecialtyDropdown = false;
     public $selectAllSpecialties = false;
 
+    protected $listeners = ['refreshEditor'];
+
     protected $rules = [
         'hospital_name' => 'required|string|max:255',
         'image' => 'nullable|image|max:10240', // 10MB
@@ -36,8 +38,13 @@ class Create extends Component
         'selectedSpecialties' => 'required|array|min:1',
     ];
 
-    public function mount()
+    public function mount($hospital = null)
     {
+        if ($hospital) {
+        $this->description = $hospital->description;
+        $this->dispatch('refreshEditor', content: $this->description);
+    }
+    
         $this->loadRecentSpecialties();
     }
 

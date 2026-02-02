@@ -1,3 +1,4 @@
+<!-- C:\laragon\www\sirishealthcare.com\admins\resources\views\livewire\hostels\create.blade.php -->
 <div class="min-h-screen py-12 px-4 sm:px-6 lg:px-8">
     <div class="max-w-7xl mx-auto">
         <!-- Form Card -->
@@ -70,7 +71,7 @@
                                     </p>
                                 @enderror
                             </div>
-
+ 
                             <!-- State -->
                             <div class="group relative">
                                 <label for="state" class="block text-sm font-medium text-gray-700 mb-1 transition-all duration-300 group-focus-within:text-blue-600">State <span class="text-red-500">*</span></label>
@@ -240,21 +241,25 @@
                         </div>
                     </div>
 
-                   <!-- Description Field -->
-                   <div class="group">
-                        <label for="description" class="block text-sm font-medium text-gray-700 mb-2 transition-all duration-300 group-focus-within:text-indigo-600">About Hopsital</label>
-                        <textarea wire:model="description" id="description" rows="4"
-                                  class="block w-full px-4 py-3 border border-gray-300 rounded-lg focus:ring-2 focus:ring-indigo-500 focus:border-indigo-500 transition-all duration-300 placeholder-gray-400 input-highlight"
-                                  placeholder="Brief description about the doctor..."></textarea>
-                        @error('description')
-                            <p class="mt-2 text-sm text-red-600 flex items-center">
-                                <svg class="h-4 w-4 mr-1" fill="currentColor" viewBox="0 0 20 20">
-                                    <path fill-rule="evenodd" d="M18 10a8 8 0 11-16 0 8 8 0 0116 0zm-7 4a1 1 0 11-2 0 1 1 0 012 0zm-1-9a1 1 0 00-1 1v4a1 1 0 102 0V6a1 1 0 00-1-1z" clip-rule="evenodd" />
-                                </svg>
-                                {{ $message }}
-                            </p>
-                        @enderror
-                    </div>
+                   <div class="group" wire:ignore>
+    <label class="block text-sm font-medium text-gray-700 mb-2">
+        About Hospital
+    </label>
+
+    <textarea
+        id="ckeditor-description"
+        class="block w-full px-4 py-3 border border-gray-300 rounded-lg">
+        {!! $description !!}
+    </textarea>
+
+    <input type="hidden" wire:model.defer="description">
+
+    @error('description')
+        <p class="mt-2 text-sm text-red-600">{{ $message }}</p>
+    @enderror
+</div>
+
+
 
 
 
@@ -281,3 +286,48 @@
         <div class="hidden lg:block fixed top-1/4 right-0 w-48 h-48 bg-blue-100 rounded-full filter blur-3xl opacity-20 -z-10 animate-float" style="animation-delay: 2s;"></div>
     </div>
 </div>
+
+
+    <script>
+document.addEventListener('livewire:init', () => {
+
+    let editor;
+    const el = document.querySelector('#ckeditor-description');
+    if (!el) return;
+
+    ClassicEditor
+        .create(el, {
+            toolbar: [
+                'heading',
+                '|',
+                'bold', 'italic', 'underline', 'strikethrough',
+                '|',
+                'bulletedList', 'numberedList',
+                '|',
+                'link', 'blockQuote',
+                '|',
+                'undo', 'redo'
+            ]
+        })
+        .then(instance => {
+            editor = instance;
+
+            // Sync to Livewire
+            editor.model.document.on('change:data', () => {
+                @this.set('description', editor.getData());
+            });
+
+            // Initial value
+            editor.setData(@this.get('description') ?? '');
+        })
+        .catch(error => console.error(error));
+
+    // Livewire → Editor sync
+    Livewire.on('refreshEditor', ({ content }) => {
+        if (editor && editor.getData() !== content) {
+            editor.setData(content);
+        }
+    });
+});
+</script>
+

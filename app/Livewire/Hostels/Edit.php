@@ -26,6 +26,8 @@ class Edit extends Component
     public $specialtyResults = [];
     public $selectAllSpecialties = false;
 
+    protected $listeners = ['refreshEditor'];
+
     protected $rules = [
         'hospital_name' => 'required|string|max:255',
         'image' => 'nullable|image|max:10240', // 10MB
@@ -39,6 +41,11 @@ class Edit extends Component
 
     public function mount(Hostel $hostel)
     {
+        if ($hostel) {
+        $this->description = $hostel->description;
+        $this->dispatch('refreshEditor', content: $this->description);
+       }
+
         $this->hostelId = $hostel->id;
         $this->hospital_name = $hostel->hospital_name;
         $this->city = $hostel->city;

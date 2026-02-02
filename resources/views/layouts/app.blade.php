@@ -11,8 +11,7 @@
         <link rel="preconnect" href="https://fonts.bunny.net">
         <link href="https://fonts.bunny.net/css?family=figtree:400,500,600&display=swap" rel="stylesheet" />
 
-<script src="https://cdn.tiny.cloud/1/61fvdkzmf0ynro17vhc1ti9feqq5fyyvtj15pify4k8nq9ep/tinymce/7/tinymce.min.js" referrerpolicy="origin"></script>
-
+<script src="https://cdn.ckeditor.com/ckeditor5/41.4.2/classic/ckeditor.js"></script>
          <!-- Scripts -->
         @vite(['resources/css/app.css', 'resources/js/app.js'])
 
@@ -21,9 +20,6 @@
        <!-- AOS CSS -->
     <link href="https://unpkg.com/aos@2.3.1/dist/aos.css" rel="stylesheet">
     <link href="https://cdnjs.cloudflare.com/ajax/libs/animate.css/4.1.1/animate.min.css" rel="stylesheet">
-
-    <!-- TinyMCE -->
-    <script src="https://cdn.tiny.cloud/1/61fvdkzmf0ynro17vhc1ti9feqq5fyyvtj15pify4k8nq9ep/tinymce/7/tinymce.min.js" referrerpolicy="origin"></script>
 
 
     <!-- Custom styles -->

@@ -1,3 +1,4 @@
+<!-- C:\laragon\www\sirishealthcare.com\admins\resources\views\livewire\hostels\edit.blade.php -->
 <div class="min-h-screen py-12 px-4 sm:px-6 lg:px-8">
     <div class="max-w-7xl mx-auto">
         <!-- Form Card -->
@@ -244,21 +245,25 @@
                         </div>
                     </div>
 
-                    <!-- Rich Text Editor -->
                     <div class="group" wire:ignore>
-                        <label for="description" class="block text-sm font-medium text-gray-700 mb-2 transition-all duration-300 group-focus-within:text-indigo-600">About Hospital</label>
-                        <textarea wire:model="description" id="description" rows="10"
-                                  class="block w-full px-4 py-3 border border-gray-300 rounded-lg focus:ring-2 focus:ring-indigo-500 focus:border-indigo-500 transition-all duration-300 placeholder-gray-400 input-highlight"
-                                  placeholder="Detailed description about the hospital...">{!! $description !!}</textarea>
-                        @error('description')
-                            <p class="mt-2 text-sm text-red-600 flex items-center">
-                                <svg class="h-4 w-4 mr-1" fill="currentColor" viewBox="0 0 20 20">
-                                    <path fill-rule="evenodd" d="M18 10a8 8 0 11-16 0 8 8 0 0116 0zm-7 4a1 1 0 11-2 0 1 1 0 012 0zm-1-9a1 1 0 00-1 1v4a1 1 0 102 0V6a1 1 0 00-1-1z" clip-rule="evenodd" />
-                                </svg>
-                                {{ $message }}
-                            </p>
-                        @enderror
-                    </div>
+    <label class="block text-sm font-medium text-gray-700 mb-2">
+        About Hospital
+    </label>
+
+    <textarea
+        id="ckeditor-description"
+        class="block w-full px-4 py-3 border border-gray-300 rounded-lg">
+        {!! $description !!}
+    </textarea>
+
+    <input type="hidden" wire:model.defer="description">
+
+    @error('description')
+        <p class="mt-2 text-sm text-red-600">{{ $message }}</p>
+    @enderror
+</div>
+
+
 
                     <!-- Submit Button -->
                     <div class="flex justify-end pt-6">
@@ -285,48 +290,45 @@
 </div>
 
 <script>
-    document.addEventListener('livewire:init', () => {
-        // Initialize TinyMCE
-        const initEditor = () => {
-            tinymce.init({
-                selector: '#description',
-                plugins: 'advlist autolink lists link image charmap preview anchor table code help wordcount',
-                toolbar: 'undo redo | formatselect | bold italic backcolor | alignleft aligncenter alignright alignjustify | bullist numlist outdent indent | removeformat | help',
-                height: 400,
-                setup: function(editor) {
-                    // Update Livewire when content changes
-                    editor.on('change', function(e) {
-                        @this.set('description', editor.getContent());
-                    });
-                    
-                    // Handle Livewire model updates
-                    Livewire.on('tinymce:update', (content) => {
-                        if (content !== editor.getContent()) {
-                            editor.setContent(content);
-                        }
-                    });
-                },
-                init_instance_callback: function(editor) {
-                    // Set initial content
-                    editor.setContent(@this.description || '');
-                }
+document.addEventListener('livewire:init', () => {
+
+    let editor;
+    const el = document.querySelector('#ckeditor-description');
+    if (!el) return;
+
+    ClassicEditor
+        .create(el, {
+            toolbar: [
+                'heading',
+                '|',
+                'bold', 'italic', 'underline', 'strikethrough',
+                '|',
+                'bulletedList', 'numberedList',
+                '|',
+                'link', 'blockQuote',
+                '|',
+                'undo', 'redo'
+            ]
+        })
+        .then(instance => {
+            editor = instance;
+
+            // Sync to Livewire
+            editor.model.document.on('change:data', () => {
+                @this.set('description', editor.getData());
             });
-        };
 
-        // Initialize editor on page load
-        initEditor();
+            // Initial value
+            editor.setData(@this.get('description') ?? '');
+        })
+        .catch(error => console.error(error));
 
-        // Reinitialize editor when Livewire updates the DOM
-        Livewire.hook('morph.updated', ({ el }) => {
-            if (el.id === 'description') {
-                tinymce.remove('#description');
-                initEditor();
-            }
-        });
-
-        // Clean up when component is removed
-        Livewire.hook('component.removed', () => {
-            tinymce.remove('#description');
-        });
+    // Livewire → Editor sync
+    Livewire.on('refreshEditor', ({ content }) => {
+        if (editor && editor.getData() !== content) {
+            editor.setData(content);
+        }
     });
+});
 </script>
+
