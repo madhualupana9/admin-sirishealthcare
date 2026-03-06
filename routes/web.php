@@ -89,6 +89,11 @@ Route::prefix('business-enquiries')->middleware(['auth', 'permission:manage-enqu
     Route::get('/{enquiry}', \App\Livewire\BusinessEnquiries\Show::class)->name('business-enquiries.show');
 });
 
+// Doctor Enquiries
+Route::prefix('doctor-enquiries')->middleware(['auth', 'permission:manage-enquiries'])->group(function () {
+    Route::get('/', \App\Livewire\DoctorEnquiries\Index::class)->name('doctor-enquiries.index');
+});
+
 // Blogs Management
 Route::middleware(['auth', 'permission:manage-blogs'])->group(function () {
     Route::get('/blogs', \App\Livewire\Blogs\Index::class)->name('blogs.index');

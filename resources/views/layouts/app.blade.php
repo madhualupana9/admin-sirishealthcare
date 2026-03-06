@@ -390,7 +390,10 @@ button:disabled {
     <!-- Enquiries -->
     @if(auth()->user()->isAdmin() || auth()->user()->hasPermission('manage-enquiries'))
     <x-sidebar-link :href="route('business-enquiries.index')" :active="request()->routeIs('business-enquiries.*')">
-        {{ __('Enquiries') }}
+        {{ __('Business Enquiries') }}
+    </x-sidebar-link>
+    <x-sidebar-link :href="route('doctor-enquiries.index')" :active="request()->routeIs('doctor-enquiries.*')">
+        {{ __('Doctors Enquiries') }}
     </x-sidebar-link>
     @endif
 
