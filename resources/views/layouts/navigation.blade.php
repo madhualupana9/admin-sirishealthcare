@@ -84,6 +84,15 @@
                 <x-responsive-nav-link :href="route('consultations.index')" :active="request()->routeIs('consultations.*')" class="block pl-3 pr-4 py-2 border-l-4 border-transparent hover:border-indigo-500 hover:bg-indigo-50 text-base font-medium text-gray-600 hover:text-gray-900 transition">
                     {{ __('Consultations') }}
                 </x-responsive-nav-link>
+
+                @if(auth()->user()->isAdmin() || auth()->user()->hasPermission('manage-hospitals'))
+                <x-responsive-nav-link :href="route('hospitals.index')" :active="request()->routeIs('hospitals.*')" class="block pl-3 pr-4 py-2 border-l-4 border-transparent hover:border-indigo-500 hover:bg-indigo-50 text-base font-medium text-gray-600 hover:text-gray-900 transition">
+                    {{ __('Hospitals') }}
+                </x-responsive-nav-link>
+                <x-responsive-nav-link :href="route('sub-branch-hospitals.index')" :active="request()->routeIs('sub-branch-hospitals.*')" class="block pl-3 pr-4 py-2 border-l-4 border-transparent hover:border-indigo-500 hover:bg-indigo-50 text-base font-medium text-gray-600 hover:text-gray-900 transition">
+                    {{ __('Sub Branch Hospitals') }}
+                </x-responsive-nav-link>
+                @endif
             </div>
 
             <!-- Responsive Settings Options -->

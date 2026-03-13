@@ -367,6 +367,9 @@ button:disabled {
     <x-sidebar-link :href="route('hospitals.index')" :active="request()->routeIs('hospitals.*')">
         {{ __('Hospitals') }}
     </x-sidebar-link>
+    <x-sidebar-link :href="route('sub-branch-hospitals.index')" :active="request()->routeIs('sub-branch-hospitals.*')">
+        {{ __('Sub Branch Hospitals') }}
+    </x-sidebar-link>
     @endif
 
     <!-- Specialties -->

@@ -47,6 +47,12 @@ Route::middleware(['auth', 'permission:manage-hospitals'])->group(function () {
     Route::get('/hospitals/{hostel}', \App\Livewire\Hostels\View::class)->name('hospitals.view');
     Route::get('/hostels/create', \App\Livewire\Hostels\Create::class)->name('hospitals.create');
     Route::get('/hospitals/{hostel}/edit', \App\Livewire\Hostels\Edit::class)->name('hospitals.edit');
+
+    // Sub Branch Hospitals
+    Route::get('/sub-branch-hospitals', \App\Livewire\SubBranchHospitals\Index::class)->name('sub-branch-hospitals.index');
+    Route::get('/sub-branch-hospitals/create', \App\Livewire\SubBranchHospitals\Create::class)->name('sub-branch-hospitals.create');
+    Route::get('/sub-branch-hospitals/{subBranch}', \App\Livewire\SubBranchHospitals\View::class)->name('sub-branch-hospitals.view');
+    Route::get('/sub-branch-hospitals/{subBranch}/edit', \App\Livewire\SubBranchHospitals\Edit::class)->name('sub-branch-hospitals.edit');
 });
 
 // Specialties Management

@@ -94,6 +94,22 @@
                                     </p>
                                 @enderror
                             </div>
+
+                            <!-- Address -->
+                            <div class="group relative">
+                                <label for="address" class="block text-sm font-medium text-gray-700 mb-1 transition-all duration-300 group-focus-within:text-blue-600">Address</label>
+                                <div class="relative rounded-lg shadow-sm">
+                                    <div class="absolute inset-y-0 left-0 pl-3 pt-3 flex items-start pointer-events-none">
+                                        <svg class="h-5 w-5 text-gray-400 group-focus-within:text-blue-500 transition-colors duration-300" xmlns="http://www.w3.org/2000/svg" viewBox="0 0 20 20" fill="currentColor">
+                                            <path fill-rule="evenodd" d="M5.05 4.05a7 7 0 119.9 9.9L10 18.9l-4.95-4.95a7 7 0 010-9.9zM10 11a2 2 0 100-4 2 2 0 000 4z" clip-rule="evenodd" />
+                                        </svg>
+                                    </div>
+                                    <textarea wire:model="address" id="address" rows="3"
+                                           class="block w-full pl-10 pr-3 py-3 border border-gray-300 rounded-lg focus:ring-2 focus:ring-blue-500 focus:border-blue-500 transition-all duration-300 placeholder-gray-400"
+                                           placeholder="Full Address"></textarea>
+                                </div>
+                                @error('address') <p class="mt-2 text-sm text-red-600">{{ $message }}</p> @enderror
+                            </div>
                         </div>
 
                         <!-- Right Column -->

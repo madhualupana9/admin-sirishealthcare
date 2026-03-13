@@ -18,6 +18,7 @@ class Edit extends Component
     public $currentImage;
     public $city;
     public $state;
+    public $address;
     public $description;
     public $contact_number;
     public $is_active;
@@ -33,6 +34,7 @@ class Edit extends Component
         'image' => 'nullable|image|max:10240', // 10MB
         'city' => 'required|string|max:100',
         'state' => 'required|string|max:100',
+        'address' => 'nullable|string',
         'description' => 'nullable|string',
         'contact_number' => 'nullable|string|max:20',
         'is_active' => 'boolean',
@@ -50,6 +52,7 @@ class Edit extends Component
         $this->hospital_name = $hostel->hospital_name;
         $this->city = $hostel->city;
         $this->state = $hostel->state;
+        $this->address = $hostel->address;
         $this->description = $hostel->description;
         $this->contact_number = $hostel->contact_number;
         $this->is_active = $hostel->is_active;
@@ -138,6 +141,7 @@ class Edit extends Component
             'hospital_name' => $this->hospital_name,
             'city' => $this->city,
             'state' => $this->state,
+            'address' => $this->address,
             'description' => $this->description,
             'contact_number' => $this->contact_number,
             'is_active' => $this->is_active,

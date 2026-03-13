@@ -16,6 +16,7 @@ class Create extends Component
     public $image;
     public $city = '';
     public $state = '';
+    public $address = '';
     public $description = '';
     public $contact_number = '';
     public $is_active = true;
@@ -32,6 +33,7 @@ class Create extends Component
         'image' => 'nullable|image|max:10240', // 10MB
         'city' => 'required|string|max:100',
         'state' => 'required|string|max:100',
+        'address' => 'nullable|string',
         'description' => 'nullable|string',
         'contact_number' => 'nullable|string|max:20',
         'is_active' => 'boolean',
@@ -135,6 +137,7 @@ class Create extends Component
             'image' => $imagePath,
             'city' => $this->city,
             'state' => $this->state,
+            'address' => $this->address,
             'description' => $this->description,
             'contact_number' => $this->contact_number,
             'is_active' => $this->is_active,

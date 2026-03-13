@@ -5,12 +5,13 @@ namespace App\Models;
 use Illuminate\Database\Eloquent\Factories\HasFactory;
 use Illuminate\Database\Eloquent\Model;
 
-class Hostel extends Model
+class SubBranchHospital extends Model
 {
     use HasFactory;
 
     protected $fillable = [
-        'hospital_name',
+        'hospital_id',
+        'name',
         'image',
         'city',
         'state',
@@ -23,14 +24,9 @@ class Hostel extends Model
     protected $casts = [
         'is_active' => 'boolean',
     ];
-    
-    public function subBranches()
-    {
-        return $this->hasMany(SubBranchHospital::class, 'hospital_id');
-    }
 
-    public function specialties()
+    public function hospital()
     {
-        return $this->belongsToMany(Specialty::class);
+        return $this->belongsTo(Hostel::class, 'hospital_id');
     }
 }
