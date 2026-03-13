@@ -231,8 +231,8 @@
                {{ $is_active ? 'checked' : '' }}>
     </div>
     <div class="ml-3 text-sm">
-        <label for="is_active" class="font-medium text-gray-700">Online Consultation</label>
-        <p class="text-gray-500">Check to make this doctor visible in Online Consultation</p>
+        <label for="is_active" class="font-medium text-gray-700">Active</label>
+        <p class="text-gray-500">Check to make this doctor active in system</p>
     </div>
 </div>
 
